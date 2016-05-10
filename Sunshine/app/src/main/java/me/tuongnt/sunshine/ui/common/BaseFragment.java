@@ -38,16 +38,6 @@ public abstract class BaseFragment<ViewModel> extends Fragment {
         bindViewModel();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        mSubscriptions.unsubscribe();
-    }
-
-    protected AppComponent getAppComponent() {
-        return ((SunshineApp) getActivity().getApplication()).getAppComponent();
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -58,18 +48,24 @@ public abstract class BaseFragment<ViewModel> extends Fragment {
         return view;
     }
 
-    protected void initView(Bundle savedInstanceState) {
-
-    }
-
-    public boolean onBackPressed() {
-        return false;
+    @Override
+    public void onStop() {
+        super.onStop();
+        mSubscriptions.unsubscribe();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    protected AppComponent getAppComponent() {
+        return ((SunshineApp) getActivity().getApplication()).getAppComponent();
+    }
+
+    protected void initView(Bundle savedInstanceState) {
+
     }
 
 }

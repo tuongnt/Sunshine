@@ -6,6 +6,7 @@ import dagger.Component;
 import me.tuongnt.sunshine.app.module.ApplicationModule;
 import me.tuongnt.sunshine.app.module.NetworkModule;
 import me.tuongnt.sunshine.ui.common.Router;
+import me.tuongnt.sunshine.ui.home.view.HomeFragment;
 
 /**
  * Created by TuongNguyen on 5/10/16.
@@ -14,4 +15,6 @@ import me.tuongnt.sunshine.ui.common.Router;
 @Component(modules = {ApplicationModule.class, NetworkModule.class})
 public interface AppComponent {
     Router getRouter();
+
+    void inject(HomeFragment homeFragment);
 }
