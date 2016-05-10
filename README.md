@@ -1,2 +1,4 @@
 # Sunshine
-Android MVVM experiment project using RxJava, Dagger
+Android MVVM project using RxJava, Dagger
+
+Giving thanks to Mr.Tri Bui
