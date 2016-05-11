@@ -1,5 +1,5 @@
 
-package me.tuongnt.sunshine.data.response;
+package me.tuongnt.sunshine.data.entity;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;

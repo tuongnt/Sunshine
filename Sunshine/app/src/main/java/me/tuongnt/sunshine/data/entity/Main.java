@@ -1,5 +1,5 @@
 
-package me.tuongnt.sunshine.data.response;
+package me.tuongnt.sunshine.data.entity;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
@@ -16,7 +16,7 @@ public class Main {
     private float pressure;
     @SerializedName("humidity")
     @Expose
-    private long humidity;
+    private int humidity;
     @SerializedName("temp_min")
     @Expose
     private float tempMin;
@@ -46,11 +46,11 @@ public class Main {
         this.pressure = pressure;
     }
 
-    public long getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(long humidity) {
+    public void setHumidity(int humidity) {
         this.humidity = humidity;
     }
 

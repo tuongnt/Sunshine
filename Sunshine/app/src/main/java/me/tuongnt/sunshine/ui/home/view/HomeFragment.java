@@ -1,21 +1,22 @@
 package me.tuongnt.sunshine.ui.home.view;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.util.Log;
 
 import me.tuongnt.sunshine.R;
 import me.tuongnt.sunshine.app.component.AppComponent;
 import me.tuongnt.sunshine.ui.common.BaseFragment;
 import me.tuongnt.sunshine.ui.home.viewmodel.HomeViewModel;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by TuongNguyen on 5/10/16.
  */
 public class HomeFragment extends BaseFragment<HomeViewModel> {
+    private static final String TAG = HomeFragment.class.getSimpleName();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onStart() {
+        super.onStart();
         mViewModel.getWeather();
     }
 
@@ -32,11 +33,11 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
     @Override
     protected void bindViewModel() {
         mSubscriptions.add(mViewModel.onGetWeatherSuccess()
+                .observeOn(AndroidSchedulers.mainThread())
                 .filter(result -> result != null)
                 .subscribe(weather -> {
-
+                    Log.i(TAG, weather.toString());
                 }));
     }
-
 
 }

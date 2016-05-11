@@ -12,10 +12,10 @@ import rx.subjects.BehaviorSubject;
  * Created by TuongNguyen on 5/10/16.
  */
 public class HomeViewModel extends BaseViewModel {
-    private Observable<Weather> OnGetWeatherSuccess = Observable.empty();
     private double mLatLocation;
     private double mLongLocation;
     private BehaviorSubject<Void> mWeather = BehaviorSubject.create();
+    private Observable<Weather> OnGetWeatherSuccess = Observable.empty();
 
     @Inject
     public HomeViewModel(WeatherService weatherService) {
