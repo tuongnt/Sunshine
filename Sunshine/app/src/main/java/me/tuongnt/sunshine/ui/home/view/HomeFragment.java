@@ -1,6 +1,7 @@
 package me.tuongnt.sunshine.ui.home.view;
 
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import butterknife.Bind;
@@ -11,7 +12,10 @@ import me.tuongnt.sunshine.ui.common.BaseFragment;
 import me.tuongnt.sunshine.ui.home.viewmodel.HomeViewModel;
 import me.tuongnt.sunshine.ui.view.ErrorView;
 import me.tuongnt.sunshine.utils.NetworkManager;
+import rx.Observable;
+import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by TuongNguyen on 5/10/16.
@@ -25,11 +29,8 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
     @Bind(R.id.error_view)
     ErrorView mErrorView;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mViewModel.getWeather();
-    }
+    @Bind(R.id.textView)
+    TextView mTextView;
 
     @Override
     protected int getFragmentLayoutResId() {
@@ -43,16 +44,21 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
 
     @Override
     protected void bindViewModel() {
-
         final NetworkManager networkManager = new NetworkManager(getContext());
+        mSubscriptions.add(Observable.just(networkManager.isNetworkAvailable())
+                .filter(connected -> connected)
+                .subscribe(haveConnection -> mViewModel.getWeather()));
+
         mSubscriptions.add(networkManager
                 .connection()
                 .subscribe(this::handleConnectionStateChanged));
 
         mSubscriptions.add(mViewModel.onGetWeatherSuccess()
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .filter(result -> result != null)
                 .subscribe(weather -> {
+                    mTextView.setText(weather.toString());
                     Log.i(TAG, weather.toString());
                 }));
     }
