@@ -7,5 +7,5 @@ import rx.Observable;
  * Created by TuongNguyen on 5/10/16.
  */
 public interface WeatherService {
-    Observable<Weather> getWeatherLocation(double lat, double lon);
+    Observable<Weather> getWeatherLocation(String city);
 }

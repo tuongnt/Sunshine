@@ -1,33 +1,41 @@
 
 package me.tuongnt.sunshine.data.entity;
 
-import javax.annotation.Generated;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("org.jsonschema2pojo")
 public class Coord {
-
     @SerializedName("lon")
-    @Expose
-    private float lon;
-    @SerializedName("lat")
-    @Expose
-    private float lat;
+    private Double lon;
 
-    public float getLon() {
+    @SerializedName("lat")
+    private Double lat;
+
+    /**
+     * @return The lon
+     */
+    public Double getLon() {
         return lon;
     }
 
-    public void setLon(float lon) {
+    /**
+     * @param lon The lon
+     */
+    public void setLon(Double lon) {
         this.lon = lon;
     }
 
-    public float getLat() {
+    /**
+     * @return The lat
+     */
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(float lat) {
+    /**
+     * @param lat The lat
+     */
+    public void setLat(Double lat) {
         this.lat = lat;
     }
+
 }

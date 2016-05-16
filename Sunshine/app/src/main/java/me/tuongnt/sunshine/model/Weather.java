@@ -63,7 +63,7 @@ public class Weather {
 
     @Override
     public String toString() {
-        return "Weather{" +
+        return "OpenWeather{" +
                 "mTemp=" + mTemp +
                 ", mTempMin=" + mTempMin +
                 ", mTempMax=" + mTempMax +

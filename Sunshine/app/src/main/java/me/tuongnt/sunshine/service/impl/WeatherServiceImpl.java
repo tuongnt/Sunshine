@@ -19,7 +19,7 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public Observable<Weather> getWeatherLocation(double lat, double lon) {
-        return mWeatherRepository.getWeather(lat, lon);
+    public Observable<Weather> getWeatherLocation(String city) {
+        return mWeatherRepository.getWeather(city);
     }
 }
