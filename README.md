@@ -9,3 +9,6 @@ In the tutorial below we assume you have the API Key and you append it to the ur
 **Icons**: The weather icons font created by [Erik Flowers](https://github.com/erikflowers/weather-icons). Copy [weathericons-regular-webfont.ttf](https://github.com/erikflowers/weather-icons/blob/master/fonts/weathericons-regular-webfont.ttf?raw=true) to your project's assets/fonts directory
 
 Giving thanks to Mr.Tri Bui
+
+# License
+Copyright 2016 Tuong Nguyen, The MIT License is a permissive license that is short and to the point. It lets people do anything they want with your code as long as they provide attribution back to you and don’t hold you liable.
