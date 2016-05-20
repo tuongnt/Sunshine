@@ -11,6 +11,6 @@ import rx.Observable;
  */
 public interface OpenWeatherApi {
 
-    @GET("forecast/daily?appid=d30d7e3341272983cfb2a378c00c15a1")
+    @GET("forecast?units=metric")
     Observable<WeatherResponse> getWeather(@Query("q") String city);
 }

@@ -20,9 +20,6 @@ public class City {
     @SerializedName("country")
     @Expose
     private String country;
-    @SerializedName("population")
-    @Expose
-    private Long population;
 
     /**
      * 
@@ -94,24 +91,6 @@ public class City {
      */
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    /**
-     * 
-     * @return
-     *     The population
-     */
-    public Long getPopulation() {
-        return population;
-    }
-
-    /**
-     * 
-     * @param population
-     *     The population
-     */
-    public void setPopulation(Long population) {
-        this.population = population;
     }
 
 }

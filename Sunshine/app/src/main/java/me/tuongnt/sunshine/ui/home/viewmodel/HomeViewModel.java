@@ -2,6 +2,7 @@ package me.tuongnt.sunshine.ui.home.viewmodel;
 
 import javax.inject.Inject;
 
+import me.tuongnt.sunshine.model.Forecast;
 import me.tuongnt.sunshine.model.Weather;
 import me.tuongnt.sunshine.service.WeatherService;
 import me.tuongnt.sunshine.ui.common.BaseViewModel;
@@ -15,20 +16,18 @@ import rx.subjects.PublishSubject;
 public class HomeViewModel extends BaseViewModel {
     private BehaviorSubject<String> mCity = BehaviorSubject.create();
     private BehaviorSubject<Void> mWeather = BehaviorSubject.create();
-    private Observable<Weather> OnGetWeatherSuccess = Observable.empty();
+    private Observable<Forecast> OnGetWeatherSuccess = Observable.empty();
     private PublishSubject<String> OnGetWeatherFailed = PublishSubject.create();
 
     @Inject
     public HomeViewModel(WeatherService weatherService) {
         OnGetWeatherSuccess = mWeather
-                .doOnError(error -> {
-                    OnGetWeatherFailed.onNext(error.getMessage());
-                })
+                .doOnError(error -> OnGetWeatherFailed.onNext(error.getMessage()))
                 .onErrorResumeNext(Observable.empty())
                 .flatMap(trigger -> weatherService.getWeatherLocation(mCity.getValue()));
     }
 
-    public Observable<Weather> onGetWeatherSuccess() {
+    public Observable<Forecast> onGetWeatherSuccess() {
         return OnGetWeatherSuccess;
     }
 

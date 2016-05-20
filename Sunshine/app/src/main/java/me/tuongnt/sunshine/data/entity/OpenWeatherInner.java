@@ -1,108 +1,161 @@
 
 package me.tuongnt.sunshine.data.entity;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Generated;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+@Generated("org.jsonschema2pojo")
 public class OpenWeatherInner {
+
     @SerializedName("dt")
+    @Expose
     private long dt;
-
-    @SerializedName("temp")
-    private Temp temp;
-
-    @SerializedName("pressure")
-    private float pressure;
-
-    @SerializedName("humidity")
-    private float humidity;
-
+    @SerializedName("main")
+    @Expose
+    private Main main;
     @SerializedName("weather")
+    @Expose
     private List<OpenWeather> mOpenWeather = new ArrayList<OpenWeather>();
-
-    @SerializedName("speed")
-    private float speed;
-
-    @SerializedName("deg")
-    private float deg;
-
     @SerializedName("clouds")
-    private float clouds;
+    @Expose
+    private Clouds clouds;
+    @SerializedName("wind")
+    @Expose
+    private Wind wind;
+    @SerializedName("sys")
+    @Expose
+    private Sys sys;
+    @SerializedName("dt_txt")
+    @Expose
+    private String dtTxt;
 
-    @SerializedName("rain")
-    private float rain;
-
+    /**
+     * 
+     * @return
+     *     The dt
+     */
     public long getDt() {
         return dt;
     }
 
+    /**
+     * 
+     * @param dt
+     *     The dt
+     */
     public void setDt(long dt) {
         this.dt = dt;
     }
 
-    public Temp getTemp() {
-        return temp;
+    /**
+     * 
+     * @return
+     *     The main
+     */
+    public Main getMain() {
+        return main;
     }
 
-    public void setTemp(Temp temp) {
-        this.temp = temp;
+    /**
+     * 
+     * @param main
+     *     The main
+     */
+    public void setMain(Main main) {
+        this.main = main;
     }
 
-    public float getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(float pressure) {
-        this.pressure = pressure;
-    }
-
-    public float getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(float humidity) {
-        this.humidity = humidity;
-    }
-
+    /**
+     * 
+     * @return
+     *     The mOpenWeather
+     */
     public List<OpenWeather> getOpenWeather() {
         return mOpenWeather;
     }
 
+    /**
+     * 
+     * @param openWeather
+     *     The mOpenWeather
+     */
     public void setOpenWeather(List<OpenWeather> openWeather) {
-        mOpenWeather = openWeather;
+        this.mOpenWeather = openWeather;
     }
 
-    public float getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
-    public float getDeg() {
-        return deg;
-    }
-
-    public void setDeg(float deg) {
-        this.deg = deg;
-    }
-
-    public float getClouds() {
+    /**
+     * 
+     * @return
+     *     The clouds
+     */
+    public Clouds getClouds() {
         return clouds;
     }
 
-    public void setClouds(float clouds) {
+    /**
+     * 
+     * @param clouds
+     *     The clouds
+     */
+    public void setClouds(Clouds clouds) {
         this.clouds = clouds;
     }
 
-    public float getRain() {
-        return rain;
+    /**
+     * 
+     * @return
+     *     The wind
+     */
+    public Wind getWind() {
+        return wind;
     }
 
-    public void setRain(float rain) {
-        this.rain = rain;
+    /**
+     * 
+     * @param wind
+     *     The wind
+     */
+    public void setWind(Wind wind) {
+        this.wind = wind;
     }
+
+    /**
+     * 
+     * @return
+     *     The sys
+     */
+    public Sys getSys() {
+        return sys;
+    }
+
+    /**
+     * 
+     * @param sys
+     *     The sys
+     */
+    public void setSys(Sys sys) {
+        this.sys = sys;
+    }
+
+    /**
+     * 
+     * @return
+     *     The dtTxt
+     */
+    public String getDtTxt() {
+        return dtTxt;
+    }
+
+    /**
+     * 
+     * @param dtTxt
+     *     The dt_txt
+     */
+    public void setDtTxt(String dtTxt) {
+        this.dtTxt = dtTxt;
+    }
+
 }

@@ -7,18 +7,18 @@ public class Weather {
     private float mTemp;
     private float mTempMin;
     private float mTempMax;
-    private String mWeatherCondition;
+    private String mWeatherMain;
+    private String mDescription;
+    private int mResource;
     private int mHumidity;
 
     public Weather() {
     }
 
-    public Weather(float temp, float tempMin, float tempMax, String weatherCondition, int humidity) {
+    public Weather(float temp, float tempMin, float tempMax) {
         mTemp = temp;
         mTempMin = tempMin;
         mTempMax = tempMax;
-        mWeatherCondition = weatherCondition;
-        mHumidity = humidity;
     }
 
     public float getTemp() {
@@ -45,12 +45,28 @@ public class Weather {
         mTempMax = tempMax;
     }
 
-    public String getWeatherCondition() {
-        return mWeatherCondition;
+    public String getWeatherMain() {
+        return mWeatherMain;
     }
 
-    public void setWeatherCondition(String weatherCondition) {
-        mWeatherCondition = weatherCondition;
+    public void setWeatherMain(String weatherMain) {
+        mWeatherMain = weatherMain;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    public int getResource() {
+        return mResource;
+    }
+
+    public void setResource(int resource) {
+        mResource = resource;
     }
 
     public int getHumidity() {
@@ -59,16 +75,5 @@ public class Weather {
 
     public void setHumidity(int humidity) {
         mHumidity = humidity;
-    }
-
-    @Override
-    public String toString() {
-        return "OpenWeather{" +
-                "mTemp=" + mTemp +
-                ", mTempMin=" + mTempMin +
-                ", mTempMax=" + mTempMax +
-                ", mWeatherCondition='" + mWeatherCondition + '\'' +
-                ", mHumidity=" + mHumidity +
-                '}';
     }
 }

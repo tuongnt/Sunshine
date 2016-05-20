@@ -1,15 +1,22 @@
 package me.tuongnt.sunshine.ui.home.view;
 
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import java.util.Date;
+import java.util.Locale;
 
 import butterknife.Bind;
 import me.tuongnt.sunshine.R;
 import me.tuongnt.sunshine.app.component.AppComponent;
+import me.tuongnt.sunshine.model.Weather;
 import me.tuongnt.sunshine.ui.SunshineError;
 import me.tuongnt.sunshine.ui.common.BaseFragment;
 import me.tuongnt.sunshine.ui.home.viewmodel.HomeViewModel;
@@ -46,6 +53,13 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
     @Bind(R.id.weather_icon)
     TextView weatherIcon;
 
+    Typeface mWeatherFont;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mWeatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
+    }
 
     @Override
     protected int getFragmentLayoutResId() {
@@ -60,7 +74,7 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
     @Override
     protected void bindViewModel() {
         final NetworkManager networkManager = new NetworkManager(getContext());
-
+        weatherIcon.setTypeface(mWeatherFont);
         mSubscriptions.add(networkManager
                 .connection()
                 .doOnNext(this::handleConnectionStateChanged)
@@ -75,15 +89,21 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .filter(result -> result != null)
-                .subscribe(weather -> {
-                    currentTemperatureField.setText(String.format("%.2f", weather.getTemp()));
-                    Log.i(TAG, weather.toString());
+                .subscribe(forecast -> {
+                    cityField.setText(forecast.getCityName());
+
+                    Weather weather = forecast.getWeathers().get(0);
+                    currentTemperatureField.setText(String.format("%.2f", weather.getTemp())+ " ℃");
+                    weatherIcon.setText(weather.getResource());
+                    detailsField.setText(
+                            weather.getDescription().toUpperCase(Locale.US) +
+                                    "\n" + "Humidity: " + weather.getHumidity() + "%");
                 }));
 
         mSubscriptions.add(mViewModel.OnGetWeatherFailed()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(message ->{
+                .subscribe(message -> {
                     Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                 }));
     }
@@ -97,39 +117,4 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
         }
     }
 
-
-    private void setWeatherIcon(int actualId, long sunrise, long sunset) {
-        int id = actualId / 100;
-        String icon = "";
-        if (actualId == 800) {
-            long currentTime = new Date().getTime();
-            if (currentTime >= sunrise && currentTime < sunset) {
-                icon = getActivity().getString(R.string.weather_sunny);
-            } else {
-                icon = getActivity().getString(R.string.weather_clear_night);
-            }
-        } else {
-            switch (id) {
-                case 2:
-                    icon = getActivity().getString(R.string.weather_thunder);
-                    break;
-                case 3:
-                    icon = getActivity().getString(R.string.weather_drizzle);
-                    break;
-                case 7:
-                    icon = getActivity().getString(R.string.weather_foggy);
-                    break;
-                case 8:
-                    icon = getActivity().getString(R.string.weather_cloudy);
-                    break;
-                case 6:
-                    icon = getActivity().getString(R.string.weather_snowy);
-                    break;
-                case 5:
-                    icon = getActivity().getString(R.string.weather_rainy);
-                    break;
-            }
-        }
-        weatherIcon.setText(icon);
-    }
 }

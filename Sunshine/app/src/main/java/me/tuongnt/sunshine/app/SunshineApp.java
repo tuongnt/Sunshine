@@ -19,9 +19,10 @@ public class SunshineApp extends Application{
         super.onCreate();
 
         String serverUrl = getResources().getString(R.string.open_weather_url);
+        String apiKey = getResources().getString(R.string.open_weather_api_key);
 
         appComponent = DaggerAppComponent.builder()
-                .networkModule(new NetworkModule(serverUrl))
+                .networkModule(new NetworkModule(serverUrl, apiKey))
                 .applicationModule(new ApplicationModule(this))
                 .build();
     }

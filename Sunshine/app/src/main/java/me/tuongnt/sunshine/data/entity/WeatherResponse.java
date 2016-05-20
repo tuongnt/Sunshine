@@ -17,7 +17,7 @@ public class WeatherResponse {
     private double message;
 
     @SerializedName("cnt")
-    private Long cnt;
+    private int cnt;
 
     @SerializedName("list")
     private List<OpenWeatherInner> mOpenWeatherInner = new ArrayList<OpenWeatherInner>();
@@ -67,14 +67,14 @@ public class WeatherResponse {
     /**
      * @return The cnt
      */
-    public Long getCnt() {
+    public int getCnt() {
         return cnt;
     }
 
     /**
      * @param cnt The cnt
      */
-    public void setCnt(Long cnt) {
+    public void setCnt(int cnt) {
         this.cnt = cnt;
     }
 

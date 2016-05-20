@@ -17,13 +17,13 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public OpenWeatherApi providesTokenApi(Retrofit retrofit) {
+    public OpenWeatherApi providesOpenWeatherApi(Retrofit retrofit) {
         return retrofit.create(OpenWeatherApi.class);
     }
 
     @Provides
     @Singleton
-    public WeatherRepository provideUserRepository(WeatherRepositoryImpl weatherRepository) {
+    public WeatherRepository providesWeatherRepository(WeatherRepositoryImpl weatherRepository) {
         return weatherRepository;
     }
 }

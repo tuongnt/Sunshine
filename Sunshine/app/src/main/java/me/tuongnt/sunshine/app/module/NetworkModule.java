@@ -1,10 +1,10 @@
 package me.tuongnt.sunshine.app.module;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,24 +20,12 @@ import rx.schedulers.Schedulers;
 @Module
 public class NetworkModule {
     private String mBaseUrl;
-    private String mServerUrl;
+    private String mOpenWeatherAppId;
 
-    public NetworkModule(String baseUrl) {
-        this.mBaseUrl = baseUrl;
+    public NetworkModule(String baseUrl, String openWeatherAppId) {
+        mBaseUrl = baseUrl;
+        mOpenWeatherAppId = openWeatherAppId;
     }
-
-    public NetworkModule(String serverUrl, String apiPath) {
-        this(serverUrl + apiPath);
-
-        mServerUrl = serverUrl;
-    }
-
-    @Provides
-    @Named("server.url")
-    public String providesServerUrl() {
-        return mServerUrl;
-    }
-
 
     @Provides
     @Singleton
@@ -47,13 +35,16 @@ public class NetworkModule {
 
         // Define the interceptor, add authentication headers
         Interceptor interceptor = chain -> {
-            Request.Builder builder = chain.request()
-                    .newBuilder();
-//            if (sessionRepository.getAuthKey() != null) {
-//                builder.addHeader("Authorization", "Bearer " + sessionRepository.getAuthKey());
-//            }
-            Request newRequest = builder.build();
-            return chain.proceed(newRequest);
+            Request original = chain.request();
+            HttpUrl originalHttpUrl = original.url();
+
+            HttpUrl url = originalHttpUrl.newBuilder()
+                    .addQueryParameter("appid", mOpenWeatherAppId)
+                    .build();
+
+            Request request = original.newBuilder()
+                    .url(url).build();
+            return chain.proceed(request);
         };
 
         // Add the interceptor to OkHttpClient
@@ -65,13 +56,11 @@ public class NetworkModule {
         RxJavaCallAdapterFactory rxAdapter =
                 RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io());
 
-        Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(rxAdapter)
                 .client(client)
                 .build();
-
-        return retrofit;
     }
 }

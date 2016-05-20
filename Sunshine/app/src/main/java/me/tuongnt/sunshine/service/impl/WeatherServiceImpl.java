@@ -3,6 +3,7 @@ package me.tuongnt.sunshine.service.impl;
 import javax.inject.Inject;
 
 import me.tuongnt.sunshine.data.WeatherRepository;
+import me.tuongnt.sunshine.model.Forecast;
 import me.tuongnt.sunshine.model.Weather;
 import me.tuongnt.sunshine.service.WeatherService;
 import rx.Observable;
@@ -19,7 +20,7 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public Observable<Weather> getWeatherLocation(String city) {
+    public Observable<Forecast> getWeatherLocation(String city) {
         return mWeatherRepository.getWeather(city);
     }
 }

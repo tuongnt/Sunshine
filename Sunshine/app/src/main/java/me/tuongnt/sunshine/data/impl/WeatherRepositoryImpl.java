@@ -4,7 +4,8 @@ import javax.inject.Inject;
 
 import me.tuongnt.sunshine.data.OpenWeatherApi;
 import me.tuongnt.sunshine.data.WeatherRepository;
-import me.tuongnt.sunshine.model.Weather;
+import me.tuongnt.sunshine.data.mapper.WeatherMapper;
+import me.tuongnt.sunshine.model.Forecast;
 import rx.Observable;
 
 /**
@@ -12,19 +13,17 @@ import rx.Observable;
  */
 public class WeatherRepositoryImpl implements WeatherRepository {
     private OpenWeatherApi mOpenWeatherApi;
+    private WeatherMapper mWeatherMapper;
 
     @Inject
-    public WeatherRepositoryImpl(OpenWeatherApi openWeatherApi) {
+    public WeatherRepositoryImpl(OpenWeatherApi openWeatherApi, WeatherMapper weatherMapper) {
         mOpenWeatherApi = openWeatherApi;
+        mWeatherMapper = weatherMapper;
     }
 
     @Override
-    public Observable<Weather> getWeather(String city) {
+    public Observable<Forecast> getWeather(String city) {
         return mOpenWeatherApi.getWeather(city)
-                .map(weatherResponse -> new Weather(11,
-                        12,
-                        13,
-                        "Rain",
-                        85));
+                .map(weatherResponse -> mWeatherMapper.transform(weatherResponse));
     }
 }
