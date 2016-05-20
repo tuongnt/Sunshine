@@ -1,5 +1,5 @@
 # Sunshine Example
-Android MVVM project using RxJava, Dagger
+This is a simple app that uses RxJava, Dagger, Retrofit to get data from openweather API
 
 Openweathermap API requires to use API Key that has to be added to the request, like:
 http://api.openweathermap.org/......&APPID={API_KEY}
